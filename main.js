@@ -32,7 +32,6 @@ let tchan = 0;
 // });
 
 
-
 // //Receive audio
 // const audio = connection.receiver.createStream(user, {mode: 'pcm'});
 // audio.pipe(fs.createWriteStream('audio_file'))
@@ -49,11 +48,11 @@ client.on('guildMemberSpeaking', (member, speaking) => {
     console.log(speaking.bitfield);
     if (speaking.bitfield) { 
         //member.guild.channels('Youre talking!');
-        tchan.send('You are talking!');
+        client.channels.cache.get(tchan).send(member.client);
 
     } 
     else {
-        tchan.send('not speaking');
+        client.channels.cache.get(tchan).send('Not talking!');
 
     }
 });
@@ -71,8 +70,8 @@ client.on('message', async message => {
 
     //bot joins 
     const { voice } = message.member;
-    vchan = voice.channel.id;
-    message.channel.send(`voice channel: ${vchan}`);
+    // vchan = voice.channel.id;
+    // message.channel.send(`voice channel: ${vchan}`);
     tchan = message.channel.id;
     message.channel.send(`text channel: ${tchan}`);
 
@@ -80,7 +79,8 @@ client.on('message', async message => {
         message.reply('You are not in a voice channel!');
     }
     else {
-        //--rhytm bot needs to join here first (promise, await required)
+        //--rhytm bot needs to join here first (promise, await required), 235088799074484224
+
         let connection = await voice.channel.join();
         
         //recording of user
@@ -90,7 +90,7 @@ client.on('message', async message => {
 
         //recording of bot
 
-        const dispatcher = connection.play('Pacman.mp3'); 
+        const dispatcher = connection.play('pacman.mp3'); 
         
         dispatcher.on('start', () => {
             console.log('music is now playing!');
