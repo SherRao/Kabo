@@ -26,9 +26,6 @@ genius.skip_non_songs = False
 # Exclude songs with these words in their title
 genius.excluded_terms = ["(Live)"]
 
-song_name = "Dior"
-artist_name = "Pop Smoke"
-
 
 def get_lyric_list(song_name: str, artist_name: str):
     song = genius.search_song(song_name, artist_name)
@@ -54,9 +51,6 @@ def get_lyric_list(song_name: str, artist_name: str):
     return lyric_list_noPunc  # list of lyrics
 
 
-get_lyric_list(song_name, artist_name)
-
-
 # Takes two lists of strings and returns a score value
 def compare_lyrics(lyric_list: list, user_list: list):
     sum = 0
@@ -66,3 +60,5 @@ def compare_lyrics(lyric_list: list, user_list: list):
 
     diff = sum / len(lyric_list) * 100
     return diff
+
+get_lyric_list("Dior", "Pop Smoke")

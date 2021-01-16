@@ -1,3 +1,4 @@
+
 // require the discord.js module
 const Discord = require('discord.js');
 
@@ -44,19 +45,18 @@ client.login(token);
 
 
 client.on('guildMemberSpeaking', (member, speaking) => {
-     const channel = member.guild.getSystemChannel();
-     channel.send('hey');
-    console.log(speaking.bits)
+    console.log(speaking.bitfield);
+    if (speaking.bitfield) { 
+        //member.guild.channels('Youre talking!');
+        const channel = client.channels.cache.get('799847451157725236');
+        channel.send('You are talking!');
 
-     if (speaking.bits.any(1)) {
-         channel.send('speaking');
-         console.log('speak');
-     
-     } 
-     else {
-         channel.send('not speaking');
-     }
- });
+    } 
+    else {
+        console.log('not speaking');
+
+    }
+});
 
 //async, await required???
 // send command to discord bot 
