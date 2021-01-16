@@ -1,13 +1,18 @@
-#from pydub.utils import make_chunks
-#from pydub import AudioSegment
-
 import os
 import numpy
+import speech_recognition
+
+from pydub.utils import make_chunks
+from pydub import AudioSegment
 
 
-# Takes a file on disk, and turns it into multiple files
-# Unused
-def split_file(audioFile):
+"""
+Takes an audio file on disk, and turns it into multiple files
+Unused
+"""
+
+
+def split_file(audioFile: str):
     song = AudioSegment.from_mp3(audioFile)
     splitSong = make_chunks(song, 100)
     for i, splice in enumerate(splitSong):
@@ -17,8 +22,12 @@ def split_file(audioFile):
     return
 
 
-# Takes list of files and returns list of integers
-def get_pitches(audioFile):
+"""
+Takes an audio file name and returns a list of pitches for timestamps throughout the audio file
+"""
+
+
+def get_pitches(audioFile: str):
     pitches = []
     stream = os.popen('aubio pitch {}'.format(audioFile))
     outputs = stream.readlines()
@@ -32,10 +41,14 @@ def get_pitches(audioFile):
     return pitches
 
 
-# Takes two lists of integers and returns a score value
-# A: Actual pitches
-# B: User pitches
-def compare_pitches(a, b):
+"""
+Takes two lists of integers and returns a score value
+ A: Actual pitches
+ B: User pitches
+"""
+
+
+def compare_pitches(a: list, b: list):
     sum = 0
     for i in range(len(a)):
         d = ((b[i] - a[i]) / a[i]) * 100
@@ -43,6 +56,3 @@ def compare_pitches(a, b):
 
     sum /= len(a)
     return sum
-
-
-get_pitches("440.wav")

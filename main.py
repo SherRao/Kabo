@@ -1,65 +1,18 @@
-import os
-import discord
-import discord.utils
-import discord.client
-from dotenv import load_dotenv
-from discord import guild, user
-from discord.ext import commands, tasks
-from discord.ext.commands import Bot
-
-load_dotenv()
-
-GUILD = os.getenv('HTN2021 Bot Server')
-intents = discord.Intents(messages=True, guilds=True,
-                          reactions=True, members=True)
-client = commands.Bot(command_prefix="~", intents=intents)
-with open('discord_token.txt') as f:
-    token = f.readline()
-
-# command to allow bot to enter - on guild member join event
-# if user.id = "rhythm bot id"
-# start recording
-# stop recording when stream of rhythm bot finishes
-# 1. give command of user singing
-# 2. link to song (api to grab youtube song)
-# 3. queueskaraoke bot
-# 4. rhythm bot joins when karoake bot joins and records straight away
-# 5. record members audio
-# 6. when rhythm bot pauses stop recording
+import audio
+import lyrics
+import stt
 
 
-@client.command()
-async def hello(ctx):
-    author = ctx.message.author.id
-    await ctx.send(f"Hello <@{author}>")
+def main():
+    user_file_name = "user_recording.wav"
+    song_file_name = "song_recording.wav"
 
+    user_lyrics = stt.audio_to_text(file)
+    actual_lyrics = lyrics.get_lyric_list(song, artist)
+    lyrics_diff = lyrics.compare_lyrics(actual_lyrics, user_lyrics)
 
-@client.event
-async def discord.on_voice_state_update(member, before, after):
-    if before.voice.voice_channel is None and after.voice.voice_channel is not None:
-        # start recording
-    elif before.voice.voice_channel is not None and after.voice.voice_channel is None:
-        # stop recording
+    user_pitches = audio.get_pitches(user_file_name)
+    song_pitches = audio.get_pitches(song_file_name)
+    pitches_diff = audio.compare_pitches(song_pitches, user_pitches)
 
-
-@client.command()
-async def hello(ctx):
-    msg = str(ctx.message)
-    if msg is "~stop":
-        # stop recording
-
-
-@ client.event
-async def on_message(message):
-    pass
-
-
-def store_file():
-    pass
-
-
-async def on_bot_join(member):
-    await ""
-    # start recording when groovy makes sound
-
-client.run(token)
+    return pitches_diff, lyrics_diff

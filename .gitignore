@@ -1,3 +1,4 @@
 config.json
 /.vscode
 /node_modules
+genius_token.txt

@@ -13,45 +13,99 @@ client.once('ready', () => {
 	console.log('Ready!');
 });
 
-//file system
+// file system
 
 const fs = require('fs');
 
 client.login(token);
 
 
+// enter voice channel
 
-
-//enter voice channel
-
-
-
-//Receive audio
-const audio = connection.receiver.createStream(user, {mode: 'pcm'});
-audio.pipe(fs.createWriteStream('audio_file'))
-
+// client.on('message', async message => {
+// 	// Join the same voice channel of the author of the message
+// 	if (message.member.voice.channel) {
+// 		const connection = await message.member.voice.channel.join();
+// 	}
+// });
 
 
 
+// //Receive audio
+// const audio = connection.receiver.createStream(user, {mode: 'pcm'});
+// audio.pipe(fs.createWriteStream('audio_file'))
+
+// on groovy bot joins\
+
+// client.on("guildMemberSpeaking", function(member, speaking){
+//     if(member.speaking.  )
+
+// });
+
+
+client.on('guildMemberSpeaking', (member, speaking) => {
+     const channel = member.guild.getSystemChannel();
+     channel.send('hey');
+    console.log(speaking.bits)
+
+     if (speaking.bits.any(1)) {
+         channel.send('speaking');
+         console.log('speak');
+     
+     } 
+     else {
+         channel.send('not speaking');
+     }
+ });
+
+//async, await required???
 // send command to discord bot 
-client.on('message', message => {
-    //exit early if doesn't start with prefix
-    if (!message.content.startsWith(prefix) || message.author.bot) return;
-        //stores resulting input as string, cutting the prefix and splitting by 
-        let args = message.content.slice(prefix.length).trim().split('~');
-        let command = args.shift().toLowerCase();
+client.on('message', async message => {
+    // exit early if doesn't start with prefix
+    if ((message.content.startsWith(prefix) == false) || message.author.bot == true){
+        return;
+    } 
+    // stores resulting input as string, cutting the prefix and splitting by 
+    let args = message.content.slice(prefix.length).trim().split('~');
+    let command = args.shift().toLowerCase();
 
-    else if (command === 'start'){
+    //bot joins 
+    const { voice } = message.member;
+
+    if(!voice.channelID) {
+        message.reply('You are not in a voice channel!');
+    }
+    else {
+        const connection = await voice.channel.join();
+        const dispatcher = connection.play('Pacman.mp3'); //promise, await required
+        
+        dispatcher.on('start', () => {
+            console.log('music is now playing!');
+        });
+        
+        dispatcher.on('finish', () => {
+            console.log('music has finished playing!');
+        });
+
+        dispatcher.on('error', console.error);
+    }
+    
+    if (command === 'start'){
         if (args.length < 2) {
-            return message.channel.send(`You didn't provide enough arguments, ${message.author}!`);
+            message.channel.send(`You didn't provide enough arguments, ${message.author}!`);
         }
         else{
-            let artist = args[1];
-            let song = args[2];
-            //start recording
+            let artist = args[0];
+            let song = args[1];
+            // start recording
+            message.channel.send(`Artist: ${artist} song: ${song}`); // \n removed -td
+            console.log(artist, song);
+
+            // member.speaking.FLAGS == 0x0
+
         }
     } 
     else if (command === 'stop'){
-        //stop recording
+        // stop recording
     }
 });
