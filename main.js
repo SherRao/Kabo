@@ -20,7 +20,8 @@ const fs = require('fs');
 
 client.login(token);
 
-
+let vchan = 0;
+let tchan = 0;
 // enter voice channel
 
 // client.on('message', async message => {
@@ -48,36 +49,48 @@ client.on('guildMemberSpeaking', (member, speaking) => {
     console.log(speaking.bitfield);
     if (speaking.bitfield) { 
         //member.guild.channels('Youre talking!');
-        const channel = client.channels.cache.get('799847451157725236');
-        channel.send('You are talking!');
+        tchan.send('You are talking!');
 
     } 
     else {
-        console.log('not speaking');
+        tchan.send('not speaking');
 
     }
 });
 
-//async, await required???
+// async, await required???
 // send command to discord bot 
 client.on('message', async message => {
     // exit early if doesn't start with prefix
     if ((message.content.startsWith(prefix) == false) || message.author.bot == true){
         return;
     } 
-    // stores resulting input as string, cutting the prefix and splitting by 
+    // stores resulting input as string, cutting the prefix and splitting by  
     let args = message.content.slice(prefix.length).trim().split('~');
     let command = args.shift().toLowerCase();
 
     //bot joins 
     const { voice } = message.member;
+    vchan = voice.channel.id;
+    message.channel.send(`voice channel: ${vchan}`);
+    tchan = message.channel.id;
+    message.channel.send(`text channel: ${tchan}`);
 
-    if(!voice.channelID) {
+    if (!voice.channelID) {
         message.reply('You are not in a voice channel!');
     }
     else {
-        const connection = await voice.channel.join();
-        const dispatcher = connection.play('Pacman.mp3'); //promise, await required
+        //--rhytm bot needs to join here first (promise, await required)
+        let connection = await voice.channel.join();
+        
+        //recording of user
+        const user = message.member;
+        const audio = connection.receiver.createStream(user, { mode: 'pcm', end: 'manual' });
+        audio.pipe(fs.createWriteStream('audio_recording'));
+
+        //recording of bot
+
+        const dispatcher = connection.play('Pacman.mp3'); 
         
         dispatcher.on('start', () => {
             console.log('music is now playing!');
@@ -107,5 +120,10 @@ client.on('message', async message => {
     } 
     else if (command === 'stop'){
         // stop recording
+    } 
+    else if(command == 'exit') {
+        client.destroy();
+        console.log('Bot shut down.');
+        message.channel.send('Bot stopping');
     }
 });
