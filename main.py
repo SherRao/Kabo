@@ -9,11 +9,11 @@ from discord.ext.commands import Bot
 
 load_dotenv()
 
-GUILD = os.getenv('')
+GUILD = os.getenv('HTN2021 Bot Server')
 intents = discord.Intents(messages=True, guilds=True,
                           reactions=True, members=True)
 client = commands.Bot(command_prefix="~", intents=intents)
-with open('token.txt') as f:
+with open('discord_token.txt') as f:
     token = f.readline()
 
 # command to allow bot to enter - on guild member join event
@@ -28,12 +28,38 @@ with open('token.txt') as f:
 # 6. when rhythm bot pauses stop recording
 
 
+@client.command()
+async def hello(ctx):
+    author = ctx.message.author.id
+    await ctx.send(f"Hello <@{author}>")
+
+
+@client.event
+async def discord.on_voice_state_update(member, before, after):
+    if before.voice.voice_channel is None and after.voice.voice_channel is not None:
+        # start recording
+    elif before.voice.voice_channel is not None and after.voice.voice_channel is None:
+        # stop recording
+
+
+@client.command()
+async def hello(ctx):
+    msg = str(ctx.message)
+    if msg is "~stop":
+        # stop recording
+
+
+@ client.event
+async def on_message(message):
+    pass
+
+
 def store_file():
     pass
 
 
-def split_file():
-    pass
-
+async def on_bot_join(member):
+    await ""
+    # start recording when groovy makes sound
 
 client.run(token)
