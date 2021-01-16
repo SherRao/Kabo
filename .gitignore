@@ -1,2 +1,3 @@
-
-discord_token.txt
+config.json
+/.vscode
+/node_modules

@@ -1,0 +1,24 @@
+{
+  "name": "hackthenorth2020-",
+  "version": "1.0.0",
+  "description": "KBot - Karaoke Discord Bot",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SherRao/HackTheNorth2020-.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SherRao/HackTheNorth2020-/issues"
+  },
+  "homepage": "https://github.com/SherRao/HackTheNorth2020-#readme",
+  "dependencies": {
+    "discord.js": "^12.5.1",
+    "eslint": "^7.18.0",
+    "ffmpeg-static": "^4.2.7"
+  }
+}
