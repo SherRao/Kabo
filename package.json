@@ -20,6 +20,7 @@
     "discord.js": "^12.5.1",
     "eslint": "^7.18.0",
     "ffmpeg-static": "^4.2.7",
-    "node-opus": "^0.3.3"
+    "node-opus": "^0.3.3",
+    "python-shell": "^2.0.3"
   }
 }

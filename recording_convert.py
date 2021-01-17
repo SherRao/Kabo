@@ -20,8 +20,9 @@
 
 import wave
 import sys
+import os
 
-file = r'C:\Users\Tarandeep\Desktop\GitHub Libraries\HTN2021 Tutorials\HackTheNorth2020-\audio_recording'
+file = r"audio_recording_test"
 
 with open(file, 'rb') as pcmfile:
     pcmdata = pcmfile.read()

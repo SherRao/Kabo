@@ -1,3 +1,12 @@
 1. js bot will take input from user
 2. js bot will record user audio
 3. files will be sent to python files
+
+---------------------------------------
+
+features to add:
+-   live database instead of local (Dropbase)
+-   leaderboard
+-   see personal score
+-   see someone elses score
+-   help
