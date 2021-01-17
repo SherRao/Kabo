@@ -39,8 +39,4 @@ def convert(file):
 def reconvert(file):
     data, samplerate = soundfile.read(file)
     soundfile.write(file, data, samplerate)
-
-    with wave.open(file, "rb") as in_f:
-        print(repr(in_f.getparams()))
-
     return

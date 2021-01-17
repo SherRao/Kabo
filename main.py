@@ -27,28 +27,27 @@ def main():
         song_name = data['song']
         song_artist = data['name']
 
-    print('A')
     user_lyrics = from_file(user_file, azure_key)
     actual_lyrics = lyrics.get_lyric_list(
         song_name, song_artist)  # from_file(user_file, azure_key)
 
-    print('B')
     user_pitches = audio.get_pitches(user_file)
     song_pitches = audio.get_pitches(bot_file)
 
-    print('C')
+    # print(user_lyrics)
+
+    # Calculates percentage difference for lyrics and pitches
     lyrics_diff = lyrics.compare_lyrics(actual_lyrics, user_lyrics)
     pitches_diff = audio.compare_pitches(song_pitches, user_pitches)
 
+    # JSON Object for transferring data to JS
     output = {'pitch': '{}'.format(
         pitches_diff), 'lyrics': '{}'.format(lyrics_diff)}
 
+    # Writes JSON data to disk.
     with open('results.json', 'w') as json_file:
         json.dump(output, json_file)
         print("dumped data to json file")
 
     print(output)
-    return pitches_diff, lyrics_diff
-
-
-print(main())
+    # return output

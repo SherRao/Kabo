@@ -104,10 +104,10 @@ client.on('message', async message => {
 		message.channel.send("Recording stopped! Analysing data...")
 
 		// Calls main.py and also prints the results of the python execution
-		var spawn = require("child_process").spawn; 
-		var process = await spawn('python',["main.py"] ); 
-		let { pitch, lyrics } = require('./results.json');
-		message.channel.send(`**Pitch Accuracy:** ${pitch}%\n**Lyrical Accuracy:** ${lyrics}%`);
+		// var spawn = require("child_process").spawn; 
+		// var process = await spawn('python',["main.py"] ); 
+		// let {pitch,lyrics} = require('./results.json');
+		// message.channel.send(`**Pitch Accuracy:** ${pitch}%\n**Lyrical Accuracy:** ${lyrics}%`);
 
         // PythonShell.run('main.py', null, null).end( () => {
 		// 	console.log('Starting end()');		
@@ -115,6 +115,29 @@ client.on('message', async message => {
 		// 	message.channel.send(`**Pitch Accuracy:** ${pitch}%\n**Lyrical Accuracy:** ${lyrics}%`);	
 		//  } );
 
+		// PythonShell.run('main.py', null, function (err, results) {
+		// 	//if (err) throw err;
+		// 	console.log('finished');
+		// 	let { pitch, lyrics } = require('./results.json');
+		// 	message.channel.send(`**Pitch Accuracy:** ${pitch}%\n**Lyrical Accuracy:** ${lyrics}%`);	
+		// 	console.log(pitch);
+		// 	console.log(lyrics);
+		// 	console.log('results: %j', results);
+		//   });
+
+		let pyshell = new PythonShell('main.py');
+
+
+		pyshell.on('message', function (message) {
+		// received a message sent from the Python script (a simple "print" statement)
+		console.log(message);
+		});
+		// end the input stream and allow the process to exit
+		pyshell.end(function (err,results) {
+		console.log('results: %j', results);
+		console.log('finished');
+		});
+		
 		// exec("python main.py", (error, stdout, stderr) => {
 		// 	if (error) {
 		// 		console.log(`error: ${error.message}`);

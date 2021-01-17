@@ -68,15 +68,10 @@ def compare_lyrics_old(lyric_list: list, user_list: list):
 
 
 def compare_lyrics(song_lyrics, user_lyrics):
-    print('I')
     intersection = []
     for word in song_lyrics:
-        print('II')
         if word in user_lyrics:
-            print('III')
             intersection.append(word)
-
-    print('IV')
     return len(intersection) / len(song_lyrics) * 100
 
 
