@@ -8,7 +8,7 @@ const Python = require('python-shell');
 const { createWriteStream } = require('fs');
 
 const groovyId = '234395307759108106' // ID for the Groovy Bot user.
-//const helpEmbed = initEmbed(); // Loads the MesageEmbed for the help command.
+const helpEmbed = initEmbed(); // Loads the MesageEmbed for the help command.
 
 let userAudio = 0; // BitStream representing the recording of the user's singing.
 let botAudio = 0;  // BitStream representing the recording of the bot's music.
@@ -80,18 +80,19 @@ client.on('message', async message => {
 			console.log('Dummy sound stopped!');
 		
 		});	
+
+		//writing to json file
 		const fs = require('fs');
-		const path = require('path');
 
 		let info = { 
-		name: 'Mike',
-		age: 23, 
-		gender: 'Male',
-		department: 'English',
-		car: 'Honda' 
+			name: args[0],
+			song: args[1]
 		};
 
-		fs.writeFileSync(path.resolve(__dirname, 'student.json'), JSON.stringify(student));
+		fs.writeFile("info.json",JSON.stringify(info, null, 4), err =>{
+			if (err) throw err;
+			message.channel.send("Data written to file");
+		});
 
 	// Stop command
 	} else if(command == 'stop') {
@@ -136,17 +137,17 @@ client.on('message', async message => {
  * Function to return the ready-made help command embed.
  * 
  **/
-// function initEmbed() {
-// 	return Discord.MessageEmbed()
-// 	.setColor('#660066')
-// 	.setTitle('KaraokeBot - Help Menu')
-// 	.setURL('https://github.com/SherRao/HackTheNorth2020-')
-// 	.setThumbnail('https://github.com/SherRao/HackTheNorth2020-/blob/main/assets/img/mic.gif')
-// 	.setFooter('Bot made by Nausher, Tarandeep, Austin, and Daner')
+function initEmbed() {
+	return Discord.MessageEmbed()
+	.setColor('#660066')
+	.setTitle('KaraokeBot - Help Menu')
+	.setURL('https://github.com/SherRao/HackTheNorth2020-')
+	.setThumbnail('https://github.com/SherRao/HackTheNorth2020-/blob/main/assets/img/mic.gif')
+	.setFooter('Bot made by Nausher, Tarandeep, Austin, and Daner')
 
-// 	.addFields( {name: 'Field Name', value: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi dui ex, dignissim at dolor et, condimentum ornare magna. Cras commodo quis massa vitae aliquam. Vestibulum gravida feugiat purus sed vestibulum. Nam a nisi nisl. Maecenas ornare bibendum risus, vitae iaculis erat rhoncus a. ', inline: false}, )
-// 	.addFields( {name: 'Field Name', value: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi dui ex, dignissim at dolor et, condimentum ornare magna. Cras commodo quis massa vitae aliquam. Vestibulum gravida feugiat purus sed vestibulum. Nam a nisi nisl. Maecenas ornare bibendum risus, vitae iaculis erat rhoncus a. ', inline: false}, )
-// 	.addFields( {name: 'Field Name', value: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi dui ex, dignissim at dolor et, condimentum ornare magna. Cras commodo quis massa vitae aliquam. Vestibulum gravida feugiat purus sed vestibulum. Nam a nisi nisl. Maecenas ornare bibendum risus, vitae iaculis erat rhoncus a. ', inline: false}, )
-// 	.addFields( {name: 'Field Name', value: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi dui ex, dignissim at dolor et, condimentum ornare magna. Cras commodo quis massa vitae aliquam. Vestibulum gravida feugiat purus sed vestibulum. Nam a nisi nisl. Maecenas ornare bibendum risus, vitae iaculis erat rhoncus a. ', inline: false}, )
-// 	.addFields( {name: 'Field Name', value: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi dui ex, dignissim at dolor et, condimentum ornare magna. Cras commodo quis massa vitae aliquam. Vestibulum gravida feugiat purus sed vestibulum. Nam a nisi nisl. Maecenas ornare bibendum risus, vitae iaculis erat rhoncus a. ', inline: false}, );
-// }
+	.addFields( {name: 'Field Name', value: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi dui ex, dignissim at dolor et, condimentum ornare magna. Cras commodo quis massa vitae aliquam. Vestibulum gravida feugiat purus sed vestibulum. Nam a nisi nisl. Maecenas ornare bibendum risus, vitae iaculis erat rhoncus a. ', inline: false}, )
+	.addFields( {name: 'Field Name', value: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi dui ex, dignissim at dolor et, condimentum ornare magna. Cras commodo quis massa vitae aliquam. Vestibulum gravida feugiat purus sed vestibulum. Nam a nisi nisl. Maecenas ornare bibendum risus, vitae iaculis erat rhoncus a. ', inline: false}, )
+	.addFields( {name: 'Field Name', value: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi dui ex, dignissim at dolor et, condimentum ornare magna. Cras commodo quis massa vitae aliquam. Vestibulum gravida feugiat purus sed vestibulum. Nam a nisi nisl. Maecenas ornare bibendum risus, vitae iaculis erat rhoncus a. ', inline: false}, )
+	.addFields( {name: 'Field Name', value: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi dui ex, dignissim at dolor et, condimentum ornare magna. Cras commodo quis massa vitae aliquam. Vestibulum gravida feugiat purus sed vestibulum. Nam a nisi nisl. Maecenas ornare bibendum risus, vitae iaculis erat rhoncus a. ', inline: false}, )
+	.addFields( {name: 'Field Name', value: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi dui ex, dignissim at dolor et, condimentum ornare magna. Cras commodo quis massa vitae aliquam. Vestibulum gravida feugiat purus sed vestibulum. Nam a nisi nisl. Maecenas ornare bibendum risus, vitae iaculis erat rhoncus a. ', inline: false}, );
+}
