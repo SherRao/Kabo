@@ -12,7 +12,6 @@ def main():
     user_lyrics = stt.audio_to_text(user_file_name)
     # = lyrics.get_lyric_list(song, artist)
     actual_lyrics = stt.audio_to_text(song_file_name)
-    lyrics_diff = lyrics.compare_lyrics(actual_lyrics, user_lyrics)
 
     user_pitches = audio.get_pitches(user_file_name)
     song_pitches = audio.get_pitches(song_file_name)
