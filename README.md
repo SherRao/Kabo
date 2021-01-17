@@ -3,7 +3,7 @@
 <h1 align="center">
   <a href=""><img src="assets/img/mic.gif" width="250"/></a>
   <br>
-  K-bot
+  k-bot
 </h1>
 
 <blockquote align="center">
