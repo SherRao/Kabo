@@ -1,10 +1,6 @@
 import lyricsgenius
 from copy import deepcopy
 
-#   func if artist exists //////////not
-#   func lyric done
-#   funct list of user lyrics and check both (assume list of user lyrics)
-
 #   genius token get
 with open('genius_token.txt') as f:
     genius_token = f.readline()
@@ -29,6 +25,8 @@ genius.excluded_terms = ["(Live)"]
 
 #   takes song and artist name and returns a list of strings containing the
 #   lyrics without punctuation
+
+
 def get_lyric_list(song_name: str, artist_name: str):
     song = genius.search_song(song_name, artist_name)
     #   song.lyrics --> string of lyrics with punctuation

@@ -4,3 +4,4 @@ config.json
 genius_token.txt
 /audio
 azure.txt
+/__pycache__
