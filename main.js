@@ -40,7 +40,8 @@ client.on('message', async message => {
         return;
 	} 
 
-	// The voice channel the user who entered the command is currently in
+	// The voice channel the user who 
+    // entered the command is currently in
 	const { voice } = message.member;
 
 	// Checks if the user is currently in a voice channel.
@@ -68,7 +69,7 @@ client.on('message', async message => {
 		botAudio.pipe(botAudioStream); // Writes the recording of the bot to the disk.
 
 		// Play dummy audio to fix issue #2929: https://github.com/discordjs/discord.js/issues/2929
-		const dispatcher = connection.play('./audio/Pacman.mp3');  
+		const dispatcher = connection.play('./audio/pacman.mp3');  
 	
 		// Prints a message when the dummy track starts
 		dispatcher.on('start', () => {
@@ -101,20 +102,26 @@ client.on('message', async message => {
 		botAudio.unpipe(botAudioStream); // Writes the recording of the bot to the disk.
 		message.channel.send("Recording stopped! Analysing data...")
 
-		// Calls main.py
-        let shell = PythonShell.run('main.py', null, function(err) {
-            console.log('Finished calling main.py');		
-			let { pitch, lyric } = require('./info.json');
-			message.channel.send(`Your pitch accuracy was: ${pitch}%\nYour lyrical accuracy was: ${lyric}`);
-		});
+		// Calls main.py and also prints the results of the python execution
+        // let shell = PythonShell.run('main.py', null, function(err) {
+        //     console.log('Finished calling main.py');		
+		// 	let { pitch, lyrics } = require('./results.json');
+		// 	message.channel.send(`Your pitch accuracy was: ${pitch}%\nYour lyrical accuracy was: ${lyrics}%`);
+		
+		// });
 	
-	// Exit command
-	} else if(command == 'exit'){
+	// Shutdown command
+	} else if(command == 'shutdown' || command == 'quit') {
 		message.channel.send('Shutting down bot :(');
 		client.destroy();
 
+	// Exit command
+	} else if(command == 'exit' || command == 'dc'){
+		message.channel.send('Disconnecting from vc :(');
+		voice.channel.leave();
+
 	// Help command
-	} else if(command == "help") {
+	} else if(command == "help" || command == "?") {
 		message.channel.send(helpEmbed);
 
 	} else

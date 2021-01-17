@@ -52,9 +52,15 @@ def compare_pitches(a: list, b: list):
         if(a[i] == 0):
             continue
 
+        if(i >= len(b)):
+            break
+
         # Percentage difference between the i'th element in a and b
-        average = (b[i] + a[i]) / 2
-        sum += ((a[i] - b[i]) / a[i]) * 100
+        actual_pitch = a[i]
+        user_pitch = b[i]
+        if(abs(actual_pitch - user_pitch) <= 50):
+            sum += 1
 
     sum /= len(a)
+    sum *= 100
     return sum

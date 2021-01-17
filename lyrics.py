@@ -36,7 +36,8 @@ def get_lyric_list(song_name: str, artist_name: str):
     lower_lyr = song.lyrics.lower()
     lyric_list = lower_lyr.split()  # might contain punc. at end of words
 
-    punctuation = [',', ';', ':', '!', '?', '&', '(', ')']
+    punctuation = [',', ';', ':', '!', '?',
+                   '&', '(', ')', '-', '[', ']', '{', '}']
     lyric_list_noPunc = deepcopy(lyric_list)
 
     # print(lyric_list_noPunc)
@@ -54,6 +55,9 @@ def get_lyric_list(song_name: str, artist_name: str):
 def compare_lyrics(lyric_list: list, user_list: list):
     sum = 0
     for i in range(len(lyric_list)):
+        if(i >= len(user_list)):
+            break
+
         if(lyric_list[i] == user_list[i]):
             sum += 1
 
