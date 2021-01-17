@@ -19,7 +19,7 @@
 - [Daner Yasin](https://github.com/danerkestey)<br>
 
 ## Technologies
-We used Microsoft Live Code with VSC to make our time setting up technologies and environments minimal and efficient.
+We used Microsoft Live Code with VSC to make our time setting up technologies and environments minimal and efficient. <3
 
 ### Python
 - Aubio
