@@ -1,12 +1,14 @@
 # HackTheNorth2020++
 Our submission for HackTheNorth++
 
+<br>
 ## Contributors
 - [Nausher Rao](https://www.github.com/sherrao)<br>
 - [Tarandeep Mittal](https://www.github.com/tdmittens)<br>
 - [Austin Luu](https://www.github.com/AustinLuu)<br>
 - [Daner Yasin](https://github.com/danerkestey)<br>
 
+<br>
 ## Technologies
 ### Python
 - Aubio
