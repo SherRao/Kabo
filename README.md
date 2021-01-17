@@ -1,11 +1,15 @@
 # HackTheNorth2020++
-Our submission for HackTheNorth++
 
 <h1 align="center">
   <a href=""><img src="assets/img/mic.gif" width="250"/></a>
   <br>
   K-bot
 </h1>
+
+<blockquote align="center">
+  <em>k-bot</em> is a lightweight Discord bot for simulating karaoke with live pitch and lyrical correctness scoring.<br>
+  It works with Groovy bot as a music source!
+</blockquote>
 
 ## Contributors
 - [Nausher Rao](https://www.github.com/sherrao)<br>
