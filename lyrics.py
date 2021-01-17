@@ -62,6 +62,3 @@ def compare_lyrics(lyric_list: list, user_list: list):
 
     diff = sum / len(lyric_list) * 100
     return diff
-
-
-get_lyric_list("dior", "pop smoke")

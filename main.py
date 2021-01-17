@@ -1,14 +1,17 @@
 import audio
 import lyrics
 import stt
+import wav_converter
 
 
 def main():
-    user_file_name = "user_recording.wav"
-    song_file_name = "song_recording.wav"
+    user_file_name = "audio_user_recording.wav"
+    song_file_name = "audio_bot_recording.wav"
+    wav_converter.convert([r"audio_user_recording", r"audio_bot_recording"])
 
-    user_lyrics = stt.audio_to_text(file)
-    actual_lyrics = lyrics.get_lyric_list(song, artist)
+    user_lyrics = stt.audio_to_text(user_file_name)
+    # = lyrics.get_lyric_list(song, artist)
+    actual_lyrics = stt.audio_to_text(song_file_name)
     lyrics_diff = lyrics.compare_lyrics(actual_lyrics, user_lyrics)
 
     user_pitches = audio.get_pitches(user_file_name)
