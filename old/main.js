@@ -5,7 +5,7 @@ const client = new Discord.Client();
 // pull configs
 const { prefix, token } = require('./config.json');
 // PythonShell
-const Python = require('python-shell');
+// const Python = require('python-shell');
 // this event will only trigger one time after logging in
 client.once('ready', () => {
 	console.log('Ready!');
@@ -51,17 +51,17 @@ client.on('guildMemberSpeaking', (member, speaking) => {
         audio_user.unpipe(audioSingerStream);
 
         // Runs main.py
-       let shell = Python.run('main.py', null, function(err) {
-            if (err) throw err;
-            console.log('Finished calling main.py');
+        // let shell = Python.run('main.py', null, function(err) {
+        //     if (err) throw err;
+        //     console.log('Finished calling main.py');
         
-        }); 
+        // }); 
 
-        // Prints output from main.py
-        shell.on('message', function(message) {
-            console.log(`Python Output: ${message}`);
-
-        } );
+        // // Prints output from main.py
+        // shell.on('message', function(message) {
+        //     console.log(`Python Output: ${message}`);
+ 
+        // } );
     }
 
     else {

@@ -1,36 +1,39 @@
-import audio
-import lyrics
-import stt
-import wav_converter
 from pydub import AudioSegment
-# AudioSegment.converter = "D:/Documents/Lazyman/streamlink/Streamlink/Dependencies/ffmpeg/ffmpeg.exe"
+
+import wav_converter
+import stt
+import lyrics
+import audio
+from azure_test import from_file
 
 
 def main():
-    # "./audio/audio_user_recording.wav"
-    user_file_name = "./audio_user_recording.wav"
-    # "./audio/audio_bot_recording.wav"
-    song_file_name = "./audio_bot_recording.wav"
-    wav_converter.convert(
-        [r"audio_user_recording", r"audio_bot_recording"])
-    wav_converter.convert1(
-        [r"audio_user_recording", r"audio_bot_recording"])
+    with open('azure.txt') as f:
+        azure_key = f.readline()
 
-    # AudioSegment.from_wav("./audio_user_recording.wav").export(
-    #     "./audio_user_recording.mp3", format="mp3")
-    # AudioSegment.from_wav("./audio_bot_recording.wav").export(
-    #     "./audio_bot_recording.mp3", format="mp3")
+    user_file = "./audio/audio_user_recording.wav"
+    bot_file = "./audio/audio_bot_recording.wav"
 
-    #lyrics.get_lyric_list(song, artist)
-    user_lyrics = stt.audio_to_text("./audio_user_recording.wav")
-    # actual_lyrics = stt.audio_to_text(song_file_name)
-    # lyrics_diff = lyrics.compare_lyrics(actual_lyrics, user_lyrics)
+    # Converts PCM to WAV
+    wav_converter.convert("./audio/audio_user_recording")
+    wav_converter.convert("./audio/audio_bot_recording")
 
-    user_pitches = audio.get_pitches(user_file_name)
-    # song_pitches = audio.get_pitches(song_file_name)
-    # pitches_diff = audio.compare_pitches(song_pitches, user_pitches)
+    # Converts WAV to WAV64
+    wav_converter.reconvert(user_file)
+    wav_converter.reconvert(bot_file)
 
-    pitches_diff, lyrics_diff = None
+    song_name = ""
+    song_artist = ""
+
+    # user_lyrics =  lyrics.get_lyric_list(song, artist)
+    user_lyrics = from_file(user_file, azure_key)
+    actual_lyrics = from_file(user_file, azure_key)
+    lyrics_diff = lyrics.compare_lyrics(actual_lyrics, user_lyrics)
+
+    user_pitches = audio.get_pitches(user_file)
+    song_pitches = audio.get_pitches(bot_file)
+    pitches_diff = audio.compare_pitches(song_pitches, user_pitches)
+
     return pitches_diff, lyrics_diff
 
 

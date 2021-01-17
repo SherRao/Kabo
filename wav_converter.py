@@ -25,23 +25,22 @@ import soundfile
 import wave
 
 
-def convert(files):
-    for file in files:
-        with open(file, 'rb') as pcmfile:
-            pcmdata = pcmfile.read()
-        with wave.open(file+'.wav', 'wb') as wavfile:
-            wavfile.setparams((2, 2, 48000, 0, 'NONE', 'NONE'))
-            wavfile.writeframes(pcmdata)
+def convert(file):
+    with open(file, 'rb') as pcmfile:
+        pcmdata = pcmfile.read()
+
+    with wave.open(file+'.wav', 'wb') as wavfile:
+        wavfile.setparams((2, 2, 48000, 0, 'NONE', 'NONE'))
+        wavfile.writeframes(pcmdata)
+
+    return
 
 
-def convert1(files):
-    for file in files:
-        data, samplerate = soundfile.read(file)
-        soundfile.write(file, data, samplerate)
+def reconvert(file):
+    data, samplerate = soundfile.read(file)
+    soundfile.write(file, data, samplerate)
 
     with wave.open(file, "rb") as in_f:
         print(repr(in_f.getparams()))
 
-
-convert(['audio_bot_recording'])
-convert1(['audio_bot_recording.wav'])
+    return

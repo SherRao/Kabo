@@ -9,4 +9,4 @@ def from_file(file_path, key):
         speech_config=speech_config, audio_config=audio_input)
 
     result = speech_recognizer.recognize_once_async().get()
-    return(result.text)
+    return result.text.split(" ")
