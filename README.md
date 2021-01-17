@@ -30,8 +30,9 @@ We used Microsoft Live Code with VSC to make our time setting up technologies an
 - Pydub Utils
 - LyricsGenius
 - Wave
+- Azure
 
-### Javascript
+### JavaScript
 - Node.js
 - PythonShell
 - Discord.js
