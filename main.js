@@ -98,17 +98,16 @@ client.on('message', async message => {
 
 	// Stop command
 	} else if(command == 'stop') {
-		userAudio.unpipe(userAudioStream); // Writes the recording of the user to the disk.
-		botAudio.unpipe(botAudioStream); // Writes the recording of the bot to the disk.
+		await userAudio.unpipe(userAudioStream); // Writes the recording of the user to the disk.
+		await botAudio.unpipe(botAudioStream); // Writes the recording of the bot to the disk.
 		message.channel.send("Recording stopped! Analysing data...")
 
 		// Calls main.py and also prints the results of the python execution
-        // let shell = PythonShell.run('main.py', null, function(err) {
-        //     console.log('Finished calling main.py');		
-		// 	let { pitch, lyrics } = require('./results.json');
-		// 	message.channel.send(`Your pitch accuracy was: ${pitch}%\nYour lyrical accuracy was: ${lyrics}%`);
-		
-		// });
+        PythonShell.run('main.py', null, function(err) {
+        	console.log('Finished calling main.py');		
+			let { pitch, lyrics } = require('./results.json');
+		 	message.channel.send(`**Pitch Accuracy:** ${pitch}%\n**Lyrical Accuracy:** ${lyrics}%`);
+		});
 	
 	// Shutdown command
 	} else if(command == 'shutdown' || command == 'quit') {

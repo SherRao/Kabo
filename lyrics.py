@@ -52,7 +52,7 @@ def get_lyric_list(song_name: str, artist_name: str):
 
 
 # Takes two lists of strings and returns a score value
-def compare_lyrics(lyric_list: list, user_list: list):
+def compare_lyrics_old(lyric_list: list, user_list: list):
     sum = 0
     for i in range(len(lyric_list)):
         if(i >= len(user_list)):
@@ -64,9 +64,23 @@ def compare_lyrics(lyric_list: list, user_list: list):
     diff = sum / len(lyric_list) * 100
     return diff
 
+# Takes two lists of strings and returns a score value
+
+
+def compare_lyrics(song_lyrics, user_lyrics):
+    print('I')
+    intersection = []
+    for word in song_lyrics:
+        print('II')
+        if word in user_lyrics:
+            print('III')
+            intersection.append(word)
+
+    print('IV')
+    return len(intersection) / len(song_lyrics) * 100
+
+
 #   Function to print the lyrics str of the desired song
-
-
 def print_lyrics(song_name: str, artist_name: str):
     song = genius.search_song(song_name, artist_name)
     return song.lyrics

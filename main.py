@@ -27,31 +27,31 @@ def main():
         song_name = data['song']
         song_artist = data['name']
 
+    print('A')
     user_lyrics = from_file(user_file, azure_key)
     actual_lyrics = lyrics.get_lyric_list(
         song_name, song_artist)  # from_file(user_file, azure_key)
 
+    print('B')
     user_pitches = audio.get_pitches(user_file)
     song_pitches = audio.get_pitches(bot_file)
 
-    print("User Lyrics: {}".format(user_lyrics))
-    print("Actual Lyrics: {}".format(actual_lyrics))
-    print("User Pitches: {}".format(user_pitches))
-    print("Actual Pitches: {}".format(song_pitches))
-
+    print('C')
     lyrics_diff = lyrics.compare_lyrics(actual_lyrics, user_lyrics)
     pitches_diff = audio.compare_pitches(song_pitches, user_pitches)
+
+    print("User Lyrics: {}".format(user_lyrics))
+    print("Actual Lyrics: {}".format(actual_lyrics))
 
     output = {'pitch': '{}'.format(
         pitches_diff), 'lyrics': '{}'.format(lyrics_diff)}
 
-    print(output)
-
     with open('results.json', 'w') as json_file:
         json.dump(output, json_file)
+        print("dumped data to json file")
 
+    print(output)
     return pitches_diff, lyrics_diff
 
 
-#
 print(main())
