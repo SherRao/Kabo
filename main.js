@@ -107,7 +107,11 @@ client.on('message', async message => {
 			let { pitch, lyric } = require('./info.json');
 			message.channel.send(`Your pitch accuracy was: ${pitch}%\nYour lyrical accuracy was: ${lyric}`);
 		});
-			// Exit command
+	
+	// Exit command
+	} else if(command == 'exit'){
+		message.channel.send('Shutting down bot :(');
+		client.destroy();
 
 	// Help command
 	} else if(command == "help") {
@@ -118,7 +122,8 @@ client.on('message', async message => {
 
 });
 	
-def initEmbed() {
+function initEmbed() {
+	return new Discord.MessageEmbed()
 	.setTitle('KaraokeBot - Help Menu')
 	.setURL('https://github.com/SherRao/HackTheNorth2020-')
 	.setThumbnail('https://github.com/SherRao/HackTheNorth2020-/blob/main/assets/img/mic.gif')
