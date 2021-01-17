@@ -1,5 +1,5 @@
 import { createRequire } from 'module';
-import {PythonShell} from 'python-shell'
+import {PythonShell} from 'python-shell';
 
 const require = createRequire(import.meta.url);
 
@@ -7,6 +7,7 @@ const Discord = require('discord.js');
 const client = new Discord.Client();
 const { prefix, token } = require('./config.json');
 const { createWriteStream } = require('fs');
+const {exec} = require("child_process")
 
 const groovyId = '234395307759108106' // ID for the Groovy Bot user.
 const helpEmbed = initEmbed(); // Loads the MesageEmbed for the help command.
@@ -103,12 +104,31 @@ client.on('message', async message => {
 		message.channel.send("Recording stopped! Analysing data...")
 
 		// Calls main.py and also prints the results of the python execution
-        PythonShell.run('main.py', null, function(err) {
-        	console.log('Finished calling main.py');		
-			let { pitch, lyrics } = require('./results.json');
-		 	message.channel.send(`**Pitch Accuracy:** ${pitch}%\n**Lyrical Accuracy:** ${lyrics}%`);
-		});
-	
+		var spawn = require("child_process").spawn; 
+		var process = await spawn('python',["main.py"] ); 
+		let { pitch, lyrics } = require('./results.json');
+		message.channel.send(`**Pitch Accuracy:** ${pitch}%\n**Lyrical Accuracy:** ${lyrics}%`);
+
+        // PythonShell.run('main.py', null, null).end( () => {
+		// 	console.log('Starting end()');		
+		// 	let { pitch, lyrics } = require('./results.json');
+		// 	message.channel.send(`**Pitch Accuracy:** ${pitch}%\n**Lyrical Accuracy:** ${lyrics}%`);	
+		//  } );
+
+		// exec("python main.py", (error, stdout, stderr) => {
+		// 	if (error) {
+		// 		console.log(`error: ${error.message}`);
+		// 		return;
+		// 	}
+		// 	if (stderr) {
+		// 		console.log(`stderr: ${stderr}`);
+		// 		return;
+		// 	}
+		// 	console.log(`stdout: ${stdout}`);
+
+		// } )
+
+
 	// Shutdown command
 	} else if(command == 'shutdown' || command == 'quit') {
 		message.channel.send('Shutting down bot :(');

@@ -40,9 +40,6 @@ def main():
     lyrics_diff = lyrics.compare_lyrics(actual_lyrics, user_lyrics)
     pitches_diff = audio.compare_pitches(song_pitches, user_pitches)
 
-    print("User Lyrics: {}".format(user_lyrics))
-    print("Actual Lyrics: {}".format(actual_lyrics))
-
     output = {'pitch': '{}'.format(
         pitches_diff), 'lyrics': '{}'.format(lyrics_diff)}
 
