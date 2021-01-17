@@ -31,6 +31,7 @@ genius.excluded_terms = ["(Live)"]
 #   lyrics without punctuation
 def get_lyric_list(song_name: str, artist_name: str):
     song = genius.search_song(song_name, artist_name)
+    #   song.lyrics --> string of lyrics with punctuation
 
     #print(song.lyrics + "\n-----------------------\n")
 
@@ -62,3 +63,6 @@ def compare_lyrics(lyric_list: list, user_list: list):
 
     diff = sum / len(lyric_list) * 100
     return diff
+
+
+get_lyric_list('dior', 'pop smoke')

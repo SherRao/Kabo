@@ -1,9 +1,8 @@
-import os
-import numpy
-import speech_recognition
-
-from pydub.utils import make_chunks
 from pydub import AudioSegment
+from pydub.utils import make_chunks
+import speech_recognition
+import numpy
+himport os
 
 
 """

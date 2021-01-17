@@ -5,6 +5,7 @@
 ---------------------------------------
 
 features to add:
+-   lyrics for songs (print)
 -   live database instead of local (Dropbase)
 -   leaderboard
 -   see personal score

@@ -1,4 +1,5 @@
 {
+  "type": "module",
   "name": "hackthenorth2020-",
   "version": "1.0.0",
   "description": "KBot - Karaoke Discord Bot",
