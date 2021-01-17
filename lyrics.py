@@ -49,8 +49,6 @@ def get_lyric_list(song_name: str, artist_name: str):
             lyric_list_noPunc[i] = lyric_list_noPunc[i].replace(char, "")
 
     # print('\n-------------------\n')
-    print(lyric_list_noPunc)
-
     return lyric_list_noPunc  # list of lyrics
 
 
@@ -64,5 +62,9 @@ def compare_lyrics(lyric_list: list, user_list: list):
     diff = sum / len(lyric_list) * 100
     return diff
 
+#   Function to print the lyrics str of the desired song
 
-get_lyric_list('dior', 'pop smoke')
+
+def print_lyrics(song_name: str, artist_name: str):
+    song = genius.search_song(song_name, artist_name)
+    return song.lyrics

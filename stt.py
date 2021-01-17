@@ -9,6 +9,7 @@ def audio_to_text(audioFile):
     sr = speech_recognition.Recognizer()
     with speech_recognition.AudioFile(audioFile) as source:
         data = sr.record(source)
-        lyrics = sr.recognize_google(data).split("")
+        lyrics = sr.recognize_google(data)
+        print(lyrics)
 
     return lyrics.lower().split(" ")

@@ -29,4 +29,4 @@ def convert(files):
             pcmdata = pcmfile.read()
         with wave.open(file+'.wav', 'wb') as wavfile:
             wavfile.setparams((2, 2, 48000, 0, 'NONE', 'NONE'))
-            wavfile.writeframesraw(pcmdata)
+            wavfile.writeframes(pcmdata)
