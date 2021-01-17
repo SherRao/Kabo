@@ -10,8 +10,10 @@ def main():
     # "./audio/audio_user_recording.wav"
     user_file_name = "./audio_user_recording.wav"
     # "./audio/audio_bot_recording.wav"
-    # song_file_name = "./audio_bot_recording.wav"
+    song_file_name = "./audio_bot_recording.wav"
     wav_converter.convert(
+        [r"audio_user_recording", r"audio_bot_recording"])
+    wav_converter.convert1(
         [r"audio_user_recording", r"audio_bot_recording"])
 
     # AudioSegment.from_wav("./audio_user_recording.wav").export(
@@ -20,7 +22,7 @@ def main():
     #     "./audio_bot_recording.mp3", format="mp3")
 
     #lyrics.get_lyric_list(song, artist)
-    user_lyrics = stt.audio_to_text("./_audio_user_recording.wav")
+    user_lyrics = stt.audio_to_text("./audio_user_recording.wav")
     # actual_lyrics = stt.audio_to_text(song_file_name)
     # lyrics_diff = lyrics.compare_lyrics(actual_lyrics, user_lyrics)
 

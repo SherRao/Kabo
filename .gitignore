@@ -3,3 +3,4 @@ config.json
 /node_modules
 genius_token.txt
 /audio
+azure.txt

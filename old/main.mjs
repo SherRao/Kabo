@@ -1,6 +1,6 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
-const { prefix, token } = require('./config.json');
+const { prefix, token } = require('../config.json');
 const Python = require('python-shell');
 const { createWriteStream } = require('fs');
 
@@ -10,7 +10,7 @@ const helpEmbed = initEmbed(); // Loads the MesageEmbed for the help command
 
 let userAudio = 0; //BitStream that 
 
-client.login("Nzk5ODUwNzc5NzQxNTE5OTAz.YAJlFg.6xE7i2w1FK4IPniM0uFQgroDkMY");
+client.login("...");
 
 /** 
  * 
