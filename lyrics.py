@@ -1,10 +1,6 @@
 import lyricsgenius
 from copy import deepcopy
 
-#   func if artist exists //////////not
-#   func lyric done
-#   funct list of user lyrics and check both (assume list of user lyrics)
-
 #   genius token get
 with open('genius_token.txt') as f:
     genius_token = f.readline()
@@ -29,6 +25,8 @@ genius.excluded_terms = ["(Live)"]
 
 #   takes song and artist name and returns a list of strings containing the
 #   lyrics without punctuation
+
+
 def get_lyric_list(song_name: str, artist_name: str):
     song = genius.search_song(song_name, artist_name)
     #   song.lyrics --> string of lyrics with punctuation
@@ -38,7 +36,8 @@ def get_lyric_list(song_name: str, artist_name: str):
     lower_lyr = song.lyrics.lower()
     lyric_list = lower_lyr.split()  # might contain punc. at end of words
 
-    punctuation = [',', ';', ':', '!', '?', '&', '(', ')']
+    punctuation = [',', ';', ':', '!', '?',
+                   '&', '(', ')', '-', '[', ']', '{', '}']
     lyric_list_noPunc = deepcopy(lyric_list)
 
     # print(lyric_list_noPunc)
@@ -53,18 +52,35 @@ def get_lyric_list(song_name: str, artist_name: str):
 
 
 # Takes two lists of strings and returns a score value
-def compare_lyrics(lyric_list: list, user_list: list):
+def compare_lyrics_old(lyric_list: list, user_list: list):
     sum = 0
     for i in range(len(lyric_list)):
+        if(i >= len(user_list)):
+            break
+
         if(lyric_list[i] == user_list[i]):
             sum += 1
 
     diff = sum / len(lyric_list) * 100
     return diff
 
+# Takes two lists of strings and returns a score value
+
+
+def compare_lyrics(song_lyrics, user_lyrics):
+    print('I')
+    intersection = []
+    for word in song_lyrics:
+        print('II')
+        if word in user_lyrics:
+            print('III')
+            intersection.append(word)
+
+    print('IV')
+    return len(intersection) / len(song_lyrics) * 100
+
+
 #   Function to print the lyrics str of the desired song
-
-
 def print_lyrics(song_name: str, artist_name: str):
     song = genius.search_song(song_name, artist_name)
     return song.lyrics

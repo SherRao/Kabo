@@ -22,6 +22,7 @@ def split_file(audioFile: str):
     return
 
 
+print(1)
 """
 Takes an audio file name and returns a list of pitches for timestamps throughout the audio file
 """
@@ -38,6 +39,7 @@ def get_pitches(audioFile: str):
     return pitches
 
 
+print(2)
 """
 Takes two lists of integers and returns a score value
  A: Actual pitches
@@ -48,11 +50,19 @@ Takes two lists of integers and returns a score value
 def compare_pitches(a: list, b: list):
     sum = 0
     for i in range(len(a)):
-        if(a[i] == 0 or b[i] == 0):
+        # Prevents dividing by zero
+        if(a[i] == 0):
             continue
 
-        d = ((b[i] - a[i]) / a[i]) * 100
-        sum += d
+        if(i >= len(b)):
+            break
 
+        # Percentage difference between the i'th element in a and b
+        actual_pitch = a[i]
+        user_pitch = b[i]
+        if(abs(actual_pitch - user_pitch) <= 50):
+            sum += 1
+    print(3)
     sum /= len(a)
+    sum *= 100
     return sum

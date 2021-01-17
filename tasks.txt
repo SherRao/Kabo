@@ -11,3 +11,16 @@ features to add:
 -   see personal score
 -   see someone elses score
 -   help
+
+
+challenges
+-   analysis currently uses a simpler formulation that compares string word for word, if time permitted using regression analysis, ANOVA or other analytical methods to compare the two strings from user and song would be better
+-   data is currently stored locally, movinng data in a database so data can continue to be collected would be more promising
+-   recording of discord channels could only be done in javascript, and our comforts lied in Python, so it meant working in a new language in order to use the functionality we needed
+-   a lot of the libraries used are more obscure and don't have lots of documentation/examples behind them, which meant a lot of learning and guess and checking to ensure that what we were doing was right
+-   analysis was all done in python before the transition to js, but bot was created in js - it was a pain to try to connect the two together
+
+in the future
+-   different language support, be able to choose the language that you want to input
+-   lyrics to be printed to the user
+-   be able to 

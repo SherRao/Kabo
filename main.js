@@ -1,10 +1,11 @@
 import { createRequire } from 'module';
+import {PythonShell} from 'python-shell'
+
 const require = createRequire(import.meta.url);
 
 const Discord = require('discord.js');
 const client = new Discord.Client();
 const { prefix, token } = require('./config.json');
-const Python = require('python-shell');
 const { createWriteStream } = require('fs');
 
 const groovyId = '234395307759108106' // ID for the Groovy Bot user.
@@ -39,7 +40,8 @@ client.on('message', async message => {
         return;
 	} 
 
-	// The voice channel the user who entered the command is currently in
+	// The voice channel the user who 
+    // entered the command is currently in
 	const { voice } = message.member;
 
 	// Checks if the user is currently in a voice channel.
@@ -67,7 +69,7 @@ client.on('message', async message => {
 		botAudio.pipe(botAudioStream); // Writes the recording of the bot to the disk.
 
 		// Play dummy audio to fix issue #2929: https://github.com/discordjs/discord.js/issues/2929
-		const dispatcher = connection.play('./audio/Pacman.mp3');  
+		const dispatcher = connection.play('./audio/pacman.mp3');  
 	
 		// Prints a message when the dummy track starts
 		dispatcher.on('start', () => {
@@ -96,58 +98,46 @@ client.on('message', async message => {
 
 	// Stop command
 	} else if(command == 'stop') {
-		userAudio.unpipe(userAudioStream); // Writes the recording of the user to the disk.
-		botAudio.unpipe(botAudioStream); // Writes the recording of the bot to the disk.
+		await userAudio.unpipe(userAudioStream); // Writes the recording of the user to the disk.
+		await botAudio.unpipe(botAudioStream); // Writes the recording of the bot to the disk.
 		message.channel.send("Recording stopped! Analysing data...")
 
-		// Calls main.py
-        let shell = Python('main.py', null, function(err) {
-            if (err) throw err;
-            console.log('Finished calling main.py');
-        
-		}); 
-		
-		// Prints output from main.py
-        shell.on('message', function(message) {
-            console.log(`Python Output: ${message}`);
-
-        } );
-
-	// Exit command
-	} else if(command == 'exit') {
-        voice.channel.leave();
-        message.channel.send('Bot left the voice channel :(');
-		
-	// Emergency shutdown command
-	} else if(command == 'shutdown'){
-		message.channel.send('Bot shutting down :(');
+		// Calls main.py and also prints the results of the python execution
+        PythonShell.run('main.py', null, function(err) {
+        	console.log('Finished calling main.py');		
+			let { pitch, lyrics } = require('./results.json');
+		 	message.channel.send(`**Pitch Accuracy:** ${pitch}%\n**Lyrical Accuracy:** ${lyrics}%`);
+		});
+	
+	// Shutdown command
+	} else if(command == 'shutdown' || command == 'quit') {
+		message.channel.send('Shutting down bot :(');
 		client.destroy();
 
+	// Exit command
+	} else if(command == 'exit' || command == 'dc'){
+		message.channel.send('Disconnecting from vc :(');
+		voice.channel.leave();
+
 	// Help command
-	} else if(command == "help") {
+	} else if(command == "help" || command == "?") {
 		message.channel.send(helpEmbed);
 
 	} else
 		return;
 
 });
-
-/**
- * 
- * Function to return the ready-made help command embed.
- * 
- **/
+	
 function initEmbed() {
-	return Discord.MessageEmbed()
-	.setColor('#660066')
+	return new Discord.MessageEmbed()
 	.setTitle('KaraokeBot - Help Menu')
 	.setURL('https://github.com/SherRao/HackTheNorth2020-')
 	.setThumbnail('https://github.com/SherRao/HackTheNorth2020-/blob/main/assets/img/mic.gif')
 	.setFooter('Bot made by Nausher, Tarandeep, Austin, and Daner')
 
-	.addFields( {name: 'Field Name', value: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi dui ex, dignissim at dolor et, condimentum ornare magna. Cras commodo quis massa vitae aliquam. Vestibulum gravida feugiat purus sed vestibulum. Nam a nisi nisl. Maecenas ornare bibendum risus, vitae iaculis erat rhoncus a. ', inline: false}, )
-	.addFields( {name: 'Field Name', value: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi dui ex, dignissim at dolor et, condimentum ornare magna. Cras commodo quis massa vitae aliquam. Vestibulum gravida feugiat purus sed vestibulum. Nam a nisi nisl. Maecenas ornare bibendum risus, vitae iaculis erat rhoncus a. ', inline: false}, )
-	.addFields( {name: 'Field Name', value: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi dui ex, dignissim at dolor et, condimentum ornare magna. Cras commodo quis massa vitae aliquam. Vestibulum gravida feugiat purus sed vestibulum. Nam a nisi nisl. Maecenas ornare bibendum risus, vitae iaculis erat rhoncus a. ', inline: false}, )
-	.addFields( {name: 'Field Name', value: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi dui ex, dignissim at dolor et, condimentum ornare magna. Cras commodo quis massa vitae aliquam. Vestibulum gravida feugiat purus sed vestibulum. Nam a nisi nisl. Maecenas ornare bibendum risus, vitae iaculis erat rhoncus a. ', inline: false}, )
-	.addFields( {name: 'Field Name', value: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi dui ex, dignissim at dolor et, condimentum ornare magna. Cras commodo quis massa vitae aliquam. Vestibulum gravida feugiat purus sed vestibulum. Nam a nisi nisl. Maecenas ornare bibendum risus, vitae iaculis erat rhoncus a. ', inline: false}, );
+	.addFields( {name: '~start', value: 'Queues your song input for karaoke! \nFormat:~play~artist~song \nex. ~play~BLACKPINK~Whistle', inline: false}, )
+	.addFields( {name: '~stop', value: 'Stops recording your song to calculate your karaoke score!', inline: false}, )
+	.addFields( {name: '~exit', value: 'Removes karaoke bot from the voice channel \n :(', inline: false}, )
+	.addFields( {name: '~shutdown', value: 'Shutdown bot from the server. \nBot shutting down...', inline: false}, )
+	.addFields( {name: '~help', value: 'List of available commands', inline: false}, );
 }
