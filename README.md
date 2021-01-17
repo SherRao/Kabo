@@ -18,6 +18,8 @@
 - [Daner Yasin](https://github.com/danerkestey)<br>
 
 ## Technologies
+We used Live Code to make our time setting up technologies and environments minimal and efficient.
+
 ### Python
 - Aubio
 - Numpy
