@@ -20,7 +20,6 @@ const fs = require('fs');
 
 client.login(token);
 
-let vchan = 0;
 let tchan = 0;
 // enter voice channel
 

@@ -22,10 +22,11 @@ import wave
 import sys
 import os
 
-file = r"audio_recording_test"
+files = [r"audio_recording_bot", r"audio_recording_user"]
 
-with open(file, 'rb') as pcmfile:
-    pcmdata = pcmfile.read()
-with wave.open(file+'.wav', 'wb') as wavfile:
-    wavfile.setparams((2, 2, 44100, 0, 'NONE', 'NONE'))
-    wavfile.writeframes(pcmdata)
+for file in files:
+    with open(file, 'rb') as pcmfile:
+        pcmdata = pcmfile.read()
+    with wave.open(file+'.wav', 'wb') as wavfile:
+        wavfile.setparams((2, 2, 44100, 0, 'NONE', 'NONE'))
+        wavfile.writeframes(pcmdata)

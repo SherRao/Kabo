@@ -16,3 +16,6 @@ def main():
     pitches_diff = audio.compare_pitches(song_pitches, user_pitches)
 
     return pitches_diff, lyrics_diff
+
+
+print(main())
