@@ -4,11 +4,11 @@
 <h1 align="center">
   <a href=""><img src="assets/img/mic.gif" width="250"/></a>
   <br>
-  k-bot
+  Kabo
 </h1>
 
 <blockquote align="center">
-  <em>k-bot</em> is a lightweight Discord bot for simulating karaoke with live pitch and lyrical correctness scoring.<br>
+  <em>Kabo</em> is a lightweight karaoke Discord bot for simulating karaoke with live pitch and lyrical correctness scoring.<br>
   It works with Groovy bot as a music source!
 </blockquote>
 
@@ -19,7 +19,8 @@
 - [Daner Yasin](https://github.com/danerkestey)<br>
 
 ## Technologies
-We used Microsoft Live Code with VSC to make our time setting up technologies and environments minimal and efficient. <3
+Developed using Microsoft Live Code with VSC to keep environments minimal and efficient. <3
+You can find our devpost submission [here](https://devpost.com/software/karaokebot).
 
 ### Python
 - Aubio
