@@ -8,8 +8,8 @@
 </h1>
 
 <blockquote align="center">
-  <em>Kabo</em> is a lightweight karaoke Discord bot for simulating karaoke with live pitch and lyrical correctness scoring.<br>
-  It works with Groovy bot as a music source!
+  <em>Kabo</em> A lightweight karaoke Discord bot for simulating karaoke with live pitch and lyrical correctness scoring.<br>
+  Works with Groovy bot as a music source!
 </blockquote>
 
 ## Contributors
