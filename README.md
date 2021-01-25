@@ -19,7 +19,7 @@
 - [Daner Yasin](https://github.com/danerkestey)<br>
 
 ## Technologies
-Developed using Microsoft Live Code with VSC to keep environments minimal and efficient. <3
+Developed using Microsoft Live Code with VSC to keep environments minimal and efficient <3
 You can find our devpost submission [here](https://devpost.com/software/karaokebot).
 
 ### Python
