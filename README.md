@@ -26,7 +26,6 @@ You can find our devpost submission [here](https://devpost.com/software/karaokeb
 - Aubio
 - Numpy
 - SpeechRecognition
-- Numpy
 - Pydub
 - Pydub Utils
 - LyricsGenius
