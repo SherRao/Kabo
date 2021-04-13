@@ -17,7 +17,6 @@
 - [Tarandeep Mittal](https://www.github.com/tdmittens)<br>
 - [Austin Luu](https://www.github.com/AustinLuu)<br>
 - [Daner Yasin](https://github.com/danerkestey)<br>
-- [test]("https://github.com/SherRao/HackTheNorth2020-/blob/main/audio/")<br>
 
 ## Technologies
 Developed using Microsoft Live Code with VSC to keep environments minimal and efficient <3
