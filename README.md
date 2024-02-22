@@ -1,5 +1,5 @@
-# HackTheNorth2020++
-# Made with love online!
+# Kabo (KaraokeBot)
+# Made with love online for Hack The North 2020++!
 
 <h1 align="center">
   <a href=""><img src="assets/img/mic.gif" width="250"/></a>
